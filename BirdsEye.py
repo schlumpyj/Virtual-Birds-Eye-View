@@ -11,22 +11,17 @@ src = np.array([[0,150],[400,150],[400,300],[0,300]],np.float32)
 dst = np.array([[0,0],[400,0],[250,150],[150,150]],np.float32)
 twoR = cv.getRotationMatrix2D((400,300),90,.5)
 threeR = cv.getRotationMatrix2D((400,300),180,.5)
+
 class MyFilter:
     
     
     def process(self, img1):
-        '''
-            :param img: A numpy array representing the input image
-            :returns: A numpy array to send to the mjpg-streamer output plugin
-        '''
+
         vid2.read(img2)
         vid3.read(img3)
         cv.resize(img1, (400,300), dst=preImg1)
         cv.resize(img2, (400,300), dst=preImg2)
         cv.resize(img3, (400,300), dst=preImg3)
-        #preImg1 = cv.resize(img1, (400, 300))
-        #preImg2 = cv.resize(img2, (400, 300))
-        #preImg3 = cv.resize(img3, (400, 300))
         #img1 = cv.flip(img1, 0)
         #img1 = cv.flip(img1, 1)
         #img2 = cv.flip(img2, 0)
@@ -36,12 +31,8 @@ class MyFilter:
         image = np.zeros((400, 400, 3), np.uint8)
         image2 = np.zeros((400, 400, 3), np.uint8) 
 
-        ##########################Pushing   ^^ Down to below 200 gives the weird image
-
         M = cv.getPerspectiveTransform(src, dst)
         warp = cv.warpPerspective(preImg1.view(), M, (400, 300))
-
-
 
         two = cv.warpPerspective(preImg2.view(), M, (400, 300))
         two = cv.resize(two,(0,0), fx=2, fy=2)
