@@ -61,14 +61,14 @@ class MyFilter:
         image2[:warpMe.shape[0], :warpMe.shape[1]]= warpMe
         
         rotation = cv.warpAffine(resizeMe,twoR,(resizeMe.shape[1],resizeMe.shape[0]))
-        rotation2 = cv.warpAffine(resizeMe2,threeR,(resizeMe2.shape[1],resizeMe2.shape[0]))#could rid of this .shape stuff
+        rotation2 = cv.warpAffine(resizeMe2,threeR,(resizeMe2.shape[1],resizeMe2.shape[0]))#could rid of this
 
         rotation = rotation[100:500, 250:500]
         rotation2 = rotation2[200:450, 200:600]
         image[0:rotation.shape[0]+0, 0:rotation.shape[1]+0]= rotation
         image2[150:rotation2.shape[0]+250, 0:rotation2.shape[1]]=rotation2
-        ora = cv.add(image, image2, dst=finalSave)
-        return ora
+        cv.add(image, image2, dst=finalSave)
+        return finalSave
         
 def init_filter():
     '''
