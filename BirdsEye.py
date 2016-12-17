@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 vid2 = cv.VideoCapture(1)
 vid3 = cv.VideoCapture(2)
-#vid4 = cv.VideoCapture("roborio-4480-frc.lan:5800/?action=stream")
+vid4 = cv.VideoCapture("http://roborio-4480-frc.lan:5800/?action=stream")#needs to be http
 preImg1 = np.zeros((300, 400, 3), np.uint8)
 preImg2 = np.zeros((300, 400, 3), np.uint8)
 preImg3 = np.zeros((300, 400, 3), np.uint8)
@@ -20,7 +20,6 @@ finalSave = np.zeros((400, 400, 3), np.uint8)
 resizeMe = np.zeros((600, 800, 3), np.uint8)
 resizeMe2 = np.zeros((600, 800, 3), np.uint8)
 resizeMe3 = np.zeros((600, 800, 3), np.uint8)
-
 
 warpMe = np.zeros((300, 400, 3), np.uint8)
 warpMe2 = np.zeros((300, 400, 3), np.uint8)
@@ -45,7 +44,7 @@ class MyFilter:
     def process(self, img1):
         vid2.read(img2)
         vid3.read(img3)
-        img4 = img3.copy()
+        vid4.read(img4)
         cv.resize(img1, (400,300), dst=preImg1)
         cv.resize(img2, (400,300), dst=preImg2)
         cv.resize(img3, (400,300), dst=preImg3)
