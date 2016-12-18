@@ -1,9 +1,6 @@
 import cv2 as cv
 import numpy as np
 from webcamGet import WebcamVideoStream
-#vid2 = cv.VideoCapture(1)
-#vid3 = cv.VideoCapture(2)
-#vid4 = cv.VideoCapture("http://roborio-4480-frc.lan:5800/?action=stream")#needs to be http
 vid2 = WebcamVideoStream(src=1).start()
 vid3 = WebcamVideoStream(src=2).start()
 vid4 = WebcamVideoStream(src="http://roborio-4480-frc.lan:5800/?action=stream").start()
@@ -14,7 +11,7 @@ preImg4 = np.zeros((300, 400, 3), np.uint8)
 
 img2 = np.zeros((480, 640, 3), np.uint8)
 img3 = np.zeros((480, 640, 3), np.uint8)
-img4 = np.zeros((480, 640, 3), np.uint8)
+img4 = np.zeros((240, 320, 3), np.uint8)
 
 image = np.zeros((400, 400, 3), np.uint8)
 image2 = np.zeros((400, 400, 3), np.uint8)
@@ -93,10 +90,7 @@ class MyFilter:
         return finalSave
         
 def init_filter():
-    '''
-        This function is called after the filter module is imported. It MUST
-        return a callable object (such as a function or bound method). 
-    '''
+
     f = MyFilter()
     return f.process
 
