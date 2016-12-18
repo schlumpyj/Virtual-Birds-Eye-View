@@ -17,19 +17,14 @@ class WebcamVideoStream:
     def update(self):
 
         while True:
-                
             if self.stopped:
                 self.stream.release()
                 return
-
-                
             (self.grabbed, self.frame) = self.stream.read()
 		
 
     def read(self):
-            
         return self.frame
 
     def stop(self):
-            
         self.stopped = True
