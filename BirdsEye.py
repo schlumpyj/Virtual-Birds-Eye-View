@@ -1,8 +1,12 @@
 import cv2 as cv
 import numpy as np
-vid2 = cv.VideoCapture(1)
-vid3 = cv.VideoCapture(2)
-vid4 = cv.VideoCapture("http://roborio-4480-frc.lan:5800/?action=stream")#needs to be http
+from webcamGet import WebcamVideoStream
+#vid2 = cv.VideoCapture(1)
+#vid3 = cv.VideoCapture(2)
+#vid4 = cv.VideoCapture("http://roborio-4480-frc.lan:5800/?action=stream")#needs to be http
+vid2 = WebcamVideoStream(src=1).start()
+vid3 = WebcamVideoStream(src=2).start()
+vid4 = WebcamVideoStream(src="http://roborio-4480-frc.lan:5800/?action=stream").start()
 preImg1 = np.zeros((300, 400, 3), np.uint8)
 preImg2 = np.zeros((300, 400, 3), np.uint8)
 preImg3 = np.zeros((300, 400, 3), np.uint8)
@@ -42,9 +46,9 @@ class MyFilter:
     
     
     def process(self, img1):
-        vid2.read(img2)
-        vid3.read(img3)
-        vid4.read(img4)
+        img2 = vid2.read() #needs dst in webcamstream file
+        img3 = vid3.read()
+        img4 = vid4.read()
         cv.resize(img1, (400,300), dst=preImg1)
         cv.resize(img2, (400,300), dst=preImg2)
         cv.resize(img3, (400,300), dst=preImg3)
