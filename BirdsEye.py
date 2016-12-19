@@ -8,6 +8,10 @@ preImg1 = np.zeros((300, 400, 3), np.uint8)
 preImg2 = np.zeros((300, 400, 3), np.uint8)
 preImg3 = np.zeros((300, 400, 3), np.uint8)
 preImg4 = np.zeros((300, 400, 3), np.uint8)
+preImg1 = np.zeros((300, 400, 3), np.uint8)
+preImg2 = np.zeros((300, 400, 3), np.uint8)
+preImg3 = np.zeros((300, 400, 3), np.uint8)
+preImg4 = np.zeros((300, 400, 3), np.uint8)
 
 img2 = np.zeros((480, 640, 3), np.uint8)
 img3 = np.zeros((480, 640, 3), np.uint8)
@@ -46,19 +50,15 @@ class MyFilter:
         img2 = vid2.read() #needs dst in webcamstream file
         img3 = vid3.read()
         img4 = vid4.read()
-        cv.resize(img1, (400,300), dst=preImg1)
-        cv.resize(img2, (400,300), dst=preImg2)
-        cv.resize(img3, (400,300), dst=preImg3)
-        cv.resize(img4, (400,300), dst=preImg4)
+        cv.resize(img4, (400,300), dst=preImg1)
+        cv.resize(img3, (400,300), dst=preImg2)
+        cv.resize(img1, (400,300), dst=preImg3)
+        cv.resize(img2, (400,300), dst=preImg4)
 
-        #img1 = cv.flip(img1, 0)
-        #img1 = cv.flip(img1, 1)
-        #img2s = cv.flip(img2, 0) #needs dst
-        #img2s = cv.flip(img2, 1)
-        #img3 = cv.flip(img3, 0)
-        #img3 = cv.flip(img3, 1)
-        #img4 = cv.flip(img4, 0)
-        #img4 = cv.flip(img4, 1)
+        cv.flip(preImg1, -1, dst=preImg1)
+        cv.flip(preImg2, -1, dst=preImg2)
+        cv.flip(preImg3, -1, dst=preImg3)
+        cv.flip(preImg4, -1, dst=preImg4)
         
         cv.warpPerspective(preImg1, M, (400, 300), dst=warpMe)
 
@@ -93,4 +93,3 @@ def init_filter():
 
     f = MyFilter()
     return f.process
-
