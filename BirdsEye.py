@@ -1,9 +1,9 @@
 import cv2 as cv
 import numpy as np
 from webcamGet import WebcamVideoStream
-vid2 = WebcamVideoStream(src=1).start()
-vid3 = WebcamVideoStream(src=2).start()
-vid4 = WebcamVideoStream(src="http://roborio-4480-frc.lan:5800/?action=stream").start()
+vid2 = WebcamVideoStream(4,src=1).start()
+vid3 = WebcamVideoStream(2, src=2).start()
+vid4 = WebcamVideoStream(1, src="http://roborio-4480-frc.lan:5800/?action=stream").start()
 preImg1 = np.zeros((300, 400, 3), np.uint8)
 preImg2 = np.zeros((300, 400, 3), np.uint8)
 preImg3 = np.zeros((300, 400, 3), np.uint8)
@@ -19,6 +19,9 @@ img4 = np.zeros((240, 320, 3), np.uint8)
 
 image = np.zeros((400, 400, 3), np.uint8)
 image2 = np.zeros((400, 400, 3), np.uint8)
+
+fourcc = cv.VideoWriter_fourcc(*'MJPG')
+out = cv.VideoWriter('camera3.avi',fourcc, 10.0, (352,288))
 
 finalSave = np.zeros((400, 400, 3), np.uint8)
 
@@ -50,6 +53,7 @@ class MyFilter:
         img2 = vid2.read() #needs dst in webcamstream file
         img3 = vid3.read()
         img4 = vid4.read()
+        out.write(img1)
         cv.resize(img4, (400,300), dst=preImg1)
         cv.resize(img3, (400,300), dst=preImg2)
         cv.resize(img1, (400,300), dst=preImg3)
