@@ -59,7 +59,9 @@ class MyFilter:
         cv.flip(preImg4, -1, dst=preImg4)
         
         cv.warpPerspective(preImg1, M, (400, 300), dst=warpMe)
-
+        print (vid2.readHaar())
+        print (vid3.readHaar())
+        print (vid4.readHaar())
         cv.warpPerspective(preImg2, M,(400, 300), dst=warpMe2)
         cv.resize(warpMe2,(0,0), dst=resizeMe, fx=2, fy=2)
 
