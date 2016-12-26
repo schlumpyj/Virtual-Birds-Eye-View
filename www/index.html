@@ -9,67 +9,212 @@
   .container {
     width: 2000px auto;
     margin: 100px auto;
-    
+
     text-align: left;
   }
 
   .gauge {
     width: 300px;
     height: 250px;
-    
+
   }
-  body{
+.flip-it{
+  -moz=transform: scale(-1,-1);
+  -o-transform: scale(-1,-1);
+  -webkit-transform: scale(-1,-1);
+  transform: scale(-1,-1);
+}
+  #myProgress {
+        position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    background-color: grey;
+}
+#myBar {
+    position: absolute;
+    width: 1%;
+    height: 100%;
+    background-color: #73AD21;
+}
+#gg1 {
+    position: fixed;
+    bottom: 60px;
+    right: 1560px;
+    width: 300px;
+    border: 30px solid red;
+}
+#birdseye {
+    position: fixed;
+    bottom: 560px;
+    right: 1500px;
+}
+body{
+  margin: 0px;
+  padding: 0px;
+}
 
-      background-image: url(http://10.44.80.20:5800/?action=stream);
+#dog {
+  position: fixed;
+  bottom: 60px;
+  right: 0px;
+  height: 100%;
+  width: 100%;
 
-      background-size: 1300px;
-  }
+}
 
+#autonomous {
+    position: fixed;
+    bottom: 380px;
+    right: 1560px;
+    border: 1px solid orange;
+    width: 250px;
+    height: 50px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+#AutoTitle {
+    position: fixed;
+    bottom: 380px;
+    right: 1820px;
+    font-size: 40px;
+    color: white;
+}
+#f1 {
+    position: fixed;
+    bottom: 965px;
+    right: 1700px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f2 {
+    position: fixed;
+    bottom: 965px;
+    right: 1500px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f3 {
+    position: fixed;
+    bottom: 545px;
+    right: 1700px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f4 {
+    position: fixed;
+    bottom: 545px;
+    right: 1500px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f5 {
+    position: fixed;
+    bottom: 765px;
+    right: 1900px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#f6 {
+    position: fixed;
+    bottom: 565px;
+    right: 1900px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#f7 {
+    position: fixed;
+    bottom: 765px;
+    right: 1480px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#f8 {
+    position: fixed;
+    bottom: 565px;
+    right: 1480px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#what{
+
+  min-width: 100%;
+  min-height: 100%;
+
+}
   </style>
 </head>
 
 <body>
-Autonomous: <select id="autonomous"></select>
+<div id="dog" class="flip-it"><img id="what" src="http://10.44.80.22:5800/?action=stream"></div>
+<div id="AutoTitle">
+Auto:
+</div>
+<select id="autonomous" style="font-size:20px"></select>
+
 <div class="square">
   <div class="container">
     <div id="gg1" class="gauge"></div>
-    <div id="gg2" class="gauge"></div>
+
   </div>
   </div>
-<div>
-  <span id="robotIndicator"></span>
-  Robot: <span id="robotstate">Unknown state</span> @ <span id="robotAddress">disconnected</span>
-</div>
+
   <script src="raphael-2.1.4.min.js"></script>
   <script src="justgage.js"></script>
   <script src="/networktables/networktables.js"></script>
   <script src="/networktables/utils.js"></script>
-  <script src="jquery-2.2.2.min.js"></script>
+  <script src="jquery-1.12.2.min.js"></script>
   <script src="d3.min.js"></script>
-  
+  </br>
+  </br>
+    </br>
+  </br>
+    </br>
+  </br>
+      </br>
+
+<div id="f1"></div>
+<div id="f2"></div>
+<div id="f3"></div>
+<div id="f4"></div>
+<div id="f5"></div>
+<div id="f6"></div>
+<div id="f7"></div>
+<div id="f8"></div>
+<div id="birdseye">
+    <img src="http://10.44.80.23:8080/?action=stream">
+    </div>
+  <div id="myProgress">
+  <div id="myBar"></div>
+</div>
+
+
+
   <script>
+  var width = 1;
+  var total = 0;
+
 
   document.addEventListener("DOMContentLoaded", function(event) {
-
+attachSelectToSendableChooser("#autonomous", "/SmartDashboard/Choice")
     var dflt1 = {
       min: 0,
-      max: 100,
+      max: 120,
       donut: false,
       gaugeWidthScale: 0.7,
       title: "PSI",
       counter: true,
       titleFontColor: "red",
       hideInnerShadow: false
-    }
-    var dflt2 = {
-      min: 0,
-      max: 360,
-      donut: false,
-      gaugeWidthScale: 0.7,
-      title: "Gyro",
-      counter: true,
-      titleFontColor: "red",
-      donut: true
     }
 
 
@@ -80,46 +225,82 @@ Autonomous: <select id="autonomous"></select>
       valueFontColor: "white"
     });
 
-    var gg2 = new JustGage({
-        id: 'gg2',
-        value: 180,
-        defaults: dflt2,
-        valueFontColor: "white"
-    });
-    function onRobotConnection(connected) {
-	$('#robotstate').text(connected ? "Connected!" : "Disconnected");
-	$('#robotAddress').text(connected ? NetworkTables.getRobotAddress() : "disconnected");
-}
-
-$(document).ready(function(){
-  // sets a function that will be called when the robot connects/disconnects
-	NetworkTables.addRobotConnectionListener(onRobotConnection, true);
-	
-	attachRobotConnectionIndicator('#robotIndicator');
-  
-  // attaches the select element to a SendableChooser object
-  attachSelectToSendableChooser("#autonomous", "Autonomous Mode");
-});
+    NetworkTables.addRobotConnectionListener(function(onRobotConnection){
+    document.getElementById("gg1").style.border ="30px solid green";
+    }, true);
 
     NetworkTables.addWsConnectionListener(function(connected){
             console.log("Websocket connected: " + connected);
         }, true);
-                     
-    NetworkTables.addGlobalListener(function(key, value, isNew){
-    if(key=="/SmartDashboard/joystick"){
-            gg1.refresh((value*100));
-            console.log(key);
-                    };
-                                    
-                }, true);
-  
-                                 
 
-    
+    NetworkTables.addGlobalListener(function(key, value, isNew){
+
+    if(key=="/SmartDashboard/PSI"){
+        gg1.refresh(((value-.5)*52.631));
+
+                    }
+    else if(key=="/SmartDashboard/time"){
+        color(value);
+      move(value);
+      }
+    else if(key=="/SmartDashboard/F1"){
+
+        distanceToColor(value, "f1");
+
+    };
+
+     }, true);
+
+
+
+
 
   });
+  function move(number) {
+    var elem = document.getElementById("myBar");
+    elem.style.width = number + '%';
+
+};
+function distanceToColor(number, one){
+    var totalNumber = number*4;
+    if (totalNumber > 254){
+        totalNumber = 255;
+};
+    var reds = Math.round(255-totalNumber);
+    var greens = Math.round(totalNumber);
+    console.log(reds);
+    document.getElementById("f1").style.backgroundColor = "rgb("+reds+","+greens+",0)";
+
+
+}
+
+  function color(number) {
+
+      var actual = number*1.5;
+      var totaled = 0;
+
+      if (actual> 134){
+      document.getElementById("myBar").style.backgroundColor ="white";
+      }
+
+      else{
+
+        totaled=actual*2;
+
+      if (totaled>255){
+        totaled=255;
+      };
+
+      var green = totaled;
+      var red = 255-totaled;
+
+      document.getElementById("myBar").style.backgroundColor ="rgb("+red+","+green+",0)";
+
+  };
+
+  };
   </script>
-  
+
 </body>
 
 </html>
