@@ -10,6 +10,7 @@ class WebcamVideoStream:
         self.stream = cv2.VideoCapture(src)
         self.face = cv2.CascadeClassifier('/home/josh/Downloads/face.xml')
         self.faces=None
+	self.haarStop = True
         if camera==1:
             self.frame = np.zeros((240, 320, 3), np.uint8)
         else:
@@ -20,7 +21,6 @@ class WebcamVideoStream:
     def start(self):
 
         Thread(target=self.update, args=()).start()
-        Thread(target=self.haarMe, args=()).start()
         return self
  
     def update(self):
@@ -30,9 +30,14 @@ class WebcamVideoStream:
                 self.stream.release()
                 return   
             self.stream.read(self.frame)
-
+    
+    def startHaar(self):
+	self.haarStop = False
+	Thread(target=self.haarMe, args=()).start()
+	return self
+    
     def haarMe(self):
-        while True:
+        while self.haarStop==False:
             if self.stopped:
                 return
             frame  = cv2.resize(self.frame, (320, 240))
@@ -41,9 +46,11 @@ class WebcamVideoStream:
 
     def readHaar(self):
         return self.faces
-
+    def stopHaar(self): 
+	self.haarStop=True
+	
     def read(self):
-            
+    
         return self.frame
 
     def stop(self):
