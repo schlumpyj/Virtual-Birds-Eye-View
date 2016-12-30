@@ -43,16 +43,28 @@ M = cv.getPerspectiveTransform(src, dst)
 twoR = cv.getRotationMatrix2D((400,300),90,.5)
 threeR = cv.getRotationMatrix2D((400,300),180,.5)
 fourR = cv.getRotationMatrix2D((400,300),270,.5)
-
+birdState = True
+counter = True
 class MyFilter:
     
     
     def process(self, img1):
         if birdState == True:
+            if counter == False:
+                vid2.stopHaar()
+                vid3.stopHaar()
+                vid4.stopHaar()
+                counter = True
             self.birdsEye(img1)
         else:
+            if counter == True:
+                vid2.startHaar()
+                vid3.startHaar()
+                vid4.startHaar()
+                counter = False
             #put network tables stuff for sending out object detection
-            return blank
+            print (vid2.readHaar()) #shows that it is working or not
+            return blank #returns black image because there is nothing to show
     def birdsEye(self, img1):
         cv.resize(vid4.read(), (400,300), dst=preImg1)
         cv.resize(vid3.read(), (400,300), dst=preImg2)
