@@ -21,6 +21,7 @@ image = np.zeros((400, 400, 3), np.uint8)
 image2 = np.zeros((400, 400, 3), np.uint8)
 
 finalSave = np.zeros((400, 400, 3), np.uint8)
+blank = np.zeros((400, 400, 3), np.uint8)
 
 resizeMe = np.zeros((600, 800, 3), np.uint8)
 resizeMe2 = np.zeros((600, 800, 3), np.uint8)
@@ -47,7 +48,12 @@ class MyFilter:
     
     
     def process(self, img1):
-        
+        if birdState == True:
+            self.birdsEye(img1)
+        else:
+            #put network tables stuff for sending out object detection
+            return blank
+    def birdsEye(self, img1):
         cv.resize(vid4.read(), (400,300), dst=preImg1)
         cv.resize(vid3.read(), (400,300), dst=preImg2)
         cv.resize(img1, (400,300), dst=preImg3)
@@ -59,9 +65,6 @@ class MyFilter:
         cv.flip(preImg4, -1, dst=preImg4)
         
         cv.warpPerspective(preImg1, M, (400, 300), dst=warpMe)
-        print (vid2.readHaar())
-        print (vid3.readHaar())
-        print (vid4.readHaar())
         cv.warpPerspective(preImg2, M,(400, 300), dst=warpMe2)
         cv.resize(warpMe2,(0,0), dst=resizeMe, fx=2, fy=2)
 
