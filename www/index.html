@@ -172,7 +172,7 @@ Auto:
   <script src="justgage.js"></script>
   <script src="/networktables/networktables.js"></script>
   <script src="/networktables/utils.js"></script>
-  <script src="jquery-1.12.2.min.js"></script>
+  <script src="jquery-2.2.2.min.js"></script>
   <script src="d3.min.js"></script>
   </br>
   </br>
@@ -191,7 +191,7 @@ Auto:
 <div id="f7"></div>
 <div id="f8"></div>
 <div id="birdseye">
-    <img src="http://10.44.80.23:8080/?action=stream">
+    <img src="http://10.44.80.13:8080/?action=stream">
     </div>
   <div id="myProgress">
   <div id="myBar"></div>
@@ -276,7 +276,7 @@ function distanceToColor(number, one){
 
   function color(number) {
 
-      var actual = number*1.5;
+      var actual = 150-number;
       var totaled = 0;
 
       if (actual> 134){
