@@ -207,7 +207,7 @@
 
 
     document.addEventListener("DOMContentLoaded", function(event) {
-  attachSelectToSendableChooser("#autonomous", "/SmartDashboard/Choice")
+  attachSelectToSendableChooser("#autonomous", "/SmartDashboard/Autonomous Mode")
       var dflt1 = {
         min: 0,
         max: 120,
@@ -236,9 +236,10 @@
           }, true);
 
       NetworkTables.addGlobalListener(function(key, value, isNew){
-
+        //console.log(key);
+        console.log(value);
       if(key=="/SmartDashboard/PSI"){
-          gg1.refresh(((value-.5)*52.631));
+          gg1.refresh(((value-.583)*50.631));
 
                       }
       else if(key=="/SmartDashboard/TIME"){
@@ -256,7 +257,7 @@
 
   function move(number) {
       var elem = document.getElementById("myBar");
-      elem.style.width = number + '%';
+      elem.style.width = ((150-number)/150)*100 + '%';
 
   };
 
@@ -279,7 +280,7 @@
         var totaled = 0;
 
         if (actual> 134){
-        document.getElementById("myBar").style.backgroundColor ="white";
+        document.getElementById("myBar").style.backgroundColor ="blue";
         }
 
         else{
