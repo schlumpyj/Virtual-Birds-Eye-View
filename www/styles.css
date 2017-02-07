@@ -1,0 +1,137 @@
+  .container {
+    width: 2000px auto;
+    margin: 100px auto;
+    text-align: left;
+  }
+  .gauge {
+    width: 300px;
+    height: 250px;
+  }
+.flip-it{
+  -moz=transform: scale(-1,-1);
+  -o-transform: scale(-1,-1);
+  -webkit-transform: scale(-1,-1);
+  transform: scale(-1,-1);
+}
+  #myProgress {
+        position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    background-color: grey;
+}
+#myBar {
+    position: absolute;
+    width: 1%;
+    height: 100%;
+    background-color: #73AD21;
+}
+#gg1 {
+    position: fixed;
+    bottom: 60px;
+    right: 1560px;
+    width: 300px;
+    border: 30px solid red;
+}
+#birdseye {
+    position: fixed;
+    bottom: 560px;
+    right: 1500px;
+}
+body{
+  margin: 0px;
+  padding: 0px;
+}
+#dog {
+  position: fixed;
+  bottom: 60px;
+  right: 0px;
+  height: 100%;
+  width: 100%;
+}
+#autonomous {
+    position: fixed;
+    bottom: 380px;
+    right: 1560px;
+    border: 1px solid orange;
+    width: 250px;
+    height: 50px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+#AutoTitle {
+    position: fixed;
+    bottom: 380px;
+    right: 1820px;
+    font-size: 40px;
+    color: white;
+}
+#f1 {
+    position: fixed;
+    bottom: 965px;
+    right: 1700px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f2 {
+    position: fixed;
+    bottom: 965px;
+    right: 1500px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f3 {
+    position: fixed;
+    bottom: 545px;
+    right: 1700px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f4 {
+    position: fixed;
+    bottom: 545px;
+    right: 1500px;
+    width: 200px;
+    height: 20px;
+    background-color: green;
+}
+#f5 {
+    position: fixed;
+    bottom: 765px;
+    right: 1900px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#f6 {
+    position: fixed;
+    bottom: 565px;
+    right: 1900px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#f7 {
+    position: fixed;
+    bottom: 765px;
+    right: 1480px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#f8 {
+    position: fixed;
+    bottom: 565px;
+    right: 1480px;
+    width: 20px;
+    height: 200px;
+    background-color: green;
+}
+#what{
+  min-width: 100%;
+  min-height: 100%;
+}
