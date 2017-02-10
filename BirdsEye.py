@@ -3,7 +3,7 @@ import numpy as np
 from webcamGet import WebcamVideoStream
 vid2 = WebcamVideoStream(4,src=1).start()
 vid3 = WebcamVideoStream(2, src=2).start()
-vid4 = WebcamVideoStream(1, src="http://10.44.80.22:5800/?action=stream").start()
+vid4 = WebcamVideoStream(1, src="http://10.44.80.2:1181/stream.mjpg").start()
 preImg1 = np.zeros((300, 400, 3), np.uint8)
 preImg2 = np.zeros((300, 400, 3), np.uint8)
 preImg3 = np.zeros((300, 400, 3), np.uint8)
