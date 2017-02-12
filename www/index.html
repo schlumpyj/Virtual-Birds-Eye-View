@@ -2,21 +2,184 @@
 <html>
 
 <head>
-  <link href="styles.css" rel="stylesheet" type="text/css">
   <meta charset="utf-8" />
   <title>UC Dash</title>
   <meta name="viewport" content="width=device-width">
+  <style>
+      .container {
+        width: 2000px auto;
+        margin: 100px auto;
 
+        text-align: left;
+      }
+
+      .gauge {
+        width: 300px;
+        height: 250px;
+
+      }
+    .flip-it{
+      -moz=transform: scale(-1,-1);
+      -o-transform: scale(-1,-1);
+      -webkit-transform: scale(-1,-1);
+      transform: scale(-1,-1);
+    }
+      #myProgress {
+            position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 60px;
+        background-color: grey;
+    }
+    #myBar {
+        position: absolute;
+        width: 1%;
+        height: 100%;
+        background-color: #73AD21;
+    }
+    #gg1 {
+        position: fixed;
+        bottom: 60px;
+        right: 1560px;
+        width: 300px;
+        border: 30px solid red;
+    }
+    #birdseye {
+        position: fixed;
+        bottom: 560px;
+        right: 1500px;
+    }
+    body{
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #dog {
+      position: fixed;
+      bottom: 60px;
+      right: 0px;
+      height: 100%;
+      width: 100%;
+
+    }
+
+    #autonomous {
+        position: fixed;
+        bottom: 380px;
+        right: 1560px;
+        border: 1px solid orange;
+        width: 250px;
+        height: 50px;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+    #AutoTitle {
+        position: fixed;
+        bottom: 380px;
+        right: 1820px;
+        font-size: 40px;
+        color: white;
+    }
+    #f1 {
+        position: fixed;
+        bottom: 965px;
+        right: 1700px;
+        width: 200px;
+        height: 20px;
+        background-color: green;
+    }
+    #f2 {
+        position: fixed;
+        bottom: 965px;
+        right: 1500px;
+        width: 200px;
+        height: 20px;
+        background-color: green;
+    }
+    #f3 {
+        position: fixed;
+        bottom: 545px;
+        right: 1700px;
+        width: 200px;
+        height: 20px;
+        background-color: green;
+    }
+    #f4 {
+        position: fixed;
+        bottom: 545px;
+        right: 1500px;
+        width: 200px;
+        height: 20px;
+        background-color: green;
+    }
+    #f5 {
+        position: fixed;
+        bottom: 765px;
+        right: 1900px;
+        width: 20px;
+        height: 200px;
+        background-color: green;
+    }
+    #f6 {
+        position: fixed;
+        bottom: 565px;
+        right: 1900px;
+        width: 20px;
+        height: 200px;
+        background-color: green;
+    }
+    #f7 {
+        position: fixed;
+        bottom: 765px;
+        right: 1480px;
+        width: 20px;
+        height: 200px;
+        background-color: green;
+    }
+    #f8 {
+        position: fixed;
+        bottom: 565px;
+        right: 1480px;
+        width: 20px;
+        height: 200px;
+        background-color: green;
+    }
+    #what{
+
+      min-width: 100%;
+      min-height: 100%;
+
+    }
+    #mecanumOrNot{
+      position: fixed;
+      bottom: 675px;
+      right: 0px;
+      width: 350px;
+      height: 350px;
+    }
+    #compassOrNot{
+      position: fixed;
+      bottom: 300px;
+      right: 20px;
+      width: 300px;
+      height: 300px;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="dog" class="flip-it"><img id="what" src="http://10.44.80.2:5800/?action=stream"></div>
+  <div id="dog" class="flip-it"><img id="what" src="http://10.44.80.2:1181/stream.mjpg"></div>
 
   <div id="AutoTitle">
     Auto:
   </div>
 
   <select id="autonomous" style="font-size:20px"></select>
+
+
+  <div id="mecanumOrNot"><img src="mecanum.png" id="mecanum" height="350" width="350"></div>
+  <div id="compassOrNot"><img src="compass.png" id="compass" height="300" width="300"></div>
 
   <div class="square">
     <div class="container">
@@ -48,7 +211,7 @@
   <div id="f7"></div>
   <div id="f8"></div>
   <div id="birdseye">
-    <img src="http://10.44.80.12:8080/?action=stream">
+    <img src="http://10.44.80.12:5800/?action=stream">
   </div>
   <div id="myProgress">
   <div id="myBar"></div>
@@ -60,9 +223,8 @@
     var width = 1;
     var total = 0;
 
-
     document.addEventListener("DOMContentLoaded", function(event) {
-  attachSelectToSendableChooser("#autonomous", "/SmartDashboard/Autonomous Mode")
+    attachSelectToSendableChooser("#autonomous", "/SmartDashboard/Autonomous Mode")
       var dflt1 = {
         min: 0,
         max: 120,
@@ -92,23 +254,48 @@
 
       NetworkTables.addGlobalListener(function(key, value, isNew){
         //console.log(key);
-        console.log(value);
+        //console.log(value);
       if(key=="/SmartDashboard/PSI"){
-          gg1.refresh(((value-.583)*50.631));
+          gg1.refresh(((value-.56)*50.631));
 
                       }
       else if(key=="/SmartDashboard/TIME"){
           color(value);
-        move(value);
+          move(value);
         }
       else if(key=="/SmartDashboard/F1"){
 
           distanceToColor(value, "f1");
 
+      }
+      else if(key == "/SmartDashboard/State"){
+        changeImage(value);
+      }
+      else if(key == "/SmartDashboard/isLock"){
+        showImage(value);
       };
-
        }, true);
     });
+
+  function showImage(enabled) {
+        var img = document.getElementById('compass');
+        if (enabled=="locked"){
+          img.style.visibility = 'visible';
+        }
+        else{
+          img.style.visibility = 'hidden';
+        };
+
+    }
+  function changeImage(types){
+    if (types=="mecanum"){
+      document.getElementById('mecanum').src='mecanum.png';
+    }
+    else{
+      document.getElementById('mecanum').src='drop.png';
+    };
+  };
+
 
   function move(number) {
       var elem = document.getElementById("myBar");
@@ -141,19 +328,19 @@
         else{
 
           totaled=actual*2;
-
+        };
         if (totaled>255){
           totaled=255;
         };
 
         var green = totaled;
         var red = 255-totaled;
-
+        //console.log(green);
         document.getElementById("myBar").style.backgroundColor ="rgb("+red+","+green+",0)";
 
     };
 
-    };
+
     </script>
 
 </body>
