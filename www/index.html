@@ -292,7 +292,7 @@
       document.getElementById('mecanum').src='mecanum.png';
     }
     else{
-      document.getElementById('mecanum').src='drop.png';
+      document.getElementById('mecanum').src='Drop.png';
     };
   };
 
@@ -304,7 +304,7 @@
   };
 
   function distanceToColor(number, one){
-      var totalNumber = number*4;
+      var totalNumber = (number-8)*18;
       if (totalNumber > 254){
           totalNumber = 255;
         };
@@ -335,7 +335,7 @@
 
         var green = totaled;
         var red = 255-totaled;
-        //console.log(green);
+        console.log(green);
         document.getElementById("myBar").style.backgroundColor ="rgb("+red+","+green+",0)";
 
     };
