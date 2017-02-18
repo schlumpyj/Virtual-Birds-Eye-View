@@ -18,12 +18,6 @@
         height: 250px;
 
       }
-    .flip-it{
-      -moz=transform: scale(-1,-1);
-      -o-transform: scale(-1,-1);
-      -webkit-transform: scale(-1,-1);
-      transform: scale(-1,-1);
-    }
       #myProgress {
             position: fixed;
         bottom: 0;
@@ -46,13 +40,19 @@
         border: 30px solid red;
     }
     #birdseye {
+
         position: fixed;
         bottom: 560px;
         right: 1500px;
+
     }
     body{
-      margin: 0px;
-      padding: 0px;
+    background-image: url(http://10.44.80.2:1181/stream.mjpg);
+    background-size: 1300px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     }
 
     #dog {
@@ -84,19 +84,12 @@
     #f1 {
         position: fixed;
         bottom: 965px;
-        right: 1700px;
-        width: 200px;
-        height: 20px;
-        background-color: green;
-    }
-    #f2 {
-        position: fixed;
-        bottom: 965px;
         right: 1500px;
-        width: 200px;
+        width: 400px;
         height: 20px;
         background-color: green;
     }
+
     #f3 {
         position: fixed;
         bottom: 545px;
@@ -153,14 +146,21 @@
     }
     #mecanumOrNot{
       position: fixed;
-      bottom: 675px;
+      bottom: 775px;
       right: 0px;
       width: 350px;
       height: 350px;
     }
     #compassOrNot{
       position: fixed;
-      bottom: 300px;
+      bottom: 400px;
+      right: 20px;
+      width: 300px;
+      height: 300px;
+    }
+    #gearOrNot{
+      position: fixed;
+      bottom: 100px;
       right: 20px;
       width: 300px;
       height: 300px;
@@ -169,7 +169,7 @@
 </head>
 
 <body>
-  <div id="dog" class="flip-it"><img id="what" src="http://10.44.80.2:1181/stream.mjpg"></div>
+
 
   <div id="AutoTitle">
     Auto:
@@ -180,6 +180,7 @@
 
   <div id="mecanumOrNot"><img src="mecanum.png" id="mecanum" height="350" width="350"></div>
   <div id="compassOrNot"><img src="compass.png" id="compass" height="300" width="300"></div>
+  <div id="gearOrNot"><img src="Gear.png" id="gear" height="300" width="300"></div>
 
   <div class="square">
     <div class="container">
@@ -273,6 +274,10 @@
       }
       else if(key == "/SmartDashboard/isLock"){
         showImage(value);
+      }
+      else if(key == "/SmartDashboard/GEAR"){
+        showImageGear(value);
+        console.log(value);
       };
        }, true);
     });
@@ -285,14 +290,22 @@
         else{
           img.style.visibility = 'hidden';
         };
-
+}
+  function showImageGear(enabled) {
+        var img = document.getElementById('gear');
+        if (enabled==true){
+          img.style.visibility = 'visible';
+        }
+        else{
+          img.style.visibility = 'hidden';
+        };
     }
   function changeImage(types){
     if (types=="mecanum"){
       document.getElementById('mecanum').src='mecanum.png';
     }
     else{
-      document.getElementById('mecanum').src='Drop.png';
+      document.getElementById('mecanum').src='drop.png';
     };
   };
 
@@ -304,13 +317,13 @@
   };
 
   function distanceToColor(number, one){
-      var totalNumber = (number-8)*18;
+      var totalNumber = number*9;
       if (totalNumber > 254){
           totalNumber = 255;
         };
       var reds = Math.round(255-totalNumber);
       var greens = Math.round(totalNumber);
-      console.log(reds);
+      //console.log(reds);
       document.getElementById("f1").style.backgroundColor = "rgb("+reds+","+greens+",0)";
 
 
@@ -335,7 +348,7 @@
 
         var green = totaled;
         var red = 255-totaled;
-        console.log(green);
+        //console.log(green);
         document.getElementById("myBar").style.backgroundColor ="rgb("+red+","+green+",0)";
 
     };
