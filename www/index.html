@@ -42,10 +42,16 @@
     #birdseye {
 
         position: fixed;
-        bottom: 560px;
-        right: 1500px;
+        bottom: 480px;
+        right: 1320px;
 
     }
+    .flip-it{
+  -moz=transform: scale(-1,-1);
+  -o-transform: scale(-1,-1);
+  -webkit-transform: scale(-1,-1);
+  transform: scale(-1,-1);
+  }
     body{
     background-image: url(http://10.44.80.2:1181/stream.mjpg);
     background-size: 1300px;
@@ -83,9 +89,9 @@
     }
     #f1 {
         position: fixed;
-        bottom: 965px;
-        right: 1500px;
-        width: 400px;
+        bottom: 1085px;
+        right: 1320px;
+        width: 600px;
         height: 20px;
         background-color: green;
     }
@@ -169,7 +175,7 @@
 </head>
 
 <body>
-
+   <div id="dog" class="flip-it"><img id="what" src="http://10.44.80.2:1181/stream.mjpg"></div>
 
   <div id="AutoTitle">
     Auto:
@@ -212,7 +218,7 @@
   <div id="f7"></div>
   <div id="f8"></div>
   <div id="birdseye">
-    <img src="http://10.44.80.12:5800/?action=stream">
+    <img src="http://10.44.80.12:5800/?action=stream" width="600" height="600">
   </div>
   <div id="myProgress">
   <div id="myBar"></div>
