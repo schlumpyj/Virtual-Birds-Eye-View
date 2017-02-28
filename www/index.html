@@ -19,7 +19,7 @@
 
       }
       #myProgress {
-            position: fixed;
+        position: fixed;
         bottom: 0;
         right: 0;
         width: 100%;
@@ -42,16 +42,17 @@
     #birdseye {
 
         position: fixed;
-        bottom: 480px;
-        right: 1320px;
+        bottom: 560px;
+        right: 1500px;
 
     }
-    .flip-it{
-  -moz=transform: scale(-1,-1);
-  -o-transform: scale(-1,-1);
-  -webkit-transform: scale(-1,-1);
-  transform: scale(-1,-1);
-  }
+    #anotherHeader{
+      text-align: center; /* If you want to center it */
+      line-height: 0px; /* Set the line-height to the same as the height of the progress bar container, to center it vertically */
+      color: white;
+      font-size: 55px;
+
+    }
     body{
     background-image: url(http://10.44.80.2:1181/stream.mjpg);
     background-size: 1300px;
@@ -89,9 +90,9 @@
     }
     #f1 {
         position: fixed;
-        bottom: 1085px;
-        right: 1320px;
-        width: 600px;
+        bottom: 965px;
+        right: 1500px;
+        width: 400px;
         height: 20px;
         background-color: green;
     }
@@ -175,7 +176,7 @@
 </head>
 
 <body>
-   <div id="dog" class="flip-it"><img id="what" src="http://10.44.80.2:1181/stream.mjpg"></div>
+
 
   <div id="AutoTitle">
     Auto:
@@ -194,13 +195,14 @@
 
     </div>
   </div>
-
+    <script src="jquery-2.2.2.min.js"></script>
     <script src="raphael-2.1.4.min.js"></script>
     <script src="justgage.js"></script>
     <script src="d3.min.js"></script>
     <script src="/networktables/networktables.js"></script>
     <script src="/networktables/utils.js"></script>
-    <script src="jquery-2.2.2.min.js"></script>
+
+
     </br>
     </br>
       </br>
@@ -218,10 +220,12 @@
   <div id="f7"></div>
   <div id="f8"></div>
   <div id="birdseye">
-    <img src="http://10.44.80.12:5800/?action=stream" width="600" height="600">
+    <img src="http://10.44.80.12:5800/?action=stream">
   </div>
-  <div id="myProgress">
-  <div id="myBar"></div>
+    <div id="myProgress">
+    <div id="myBar">
+      <h1 id="anotherHeader">4</h1>
+    </div>
   </div>
 
 
@@ -283,7 +287,6 @@
       }
       else if(key == "/SmartDashboard/GEAR"){
         showImageGear(value);
-        console.log(value);
       };
        }, true);
     });
@@ -307,7 +310,7 @@
         };
     }
   function changeImage(types){
-    if (types=="mecanum"){
+    if (types==true){
       document.getElementById('mecanum').src='mecanum.png';
     }
     else{
@@ -329,36 +332,31 @@
         };
       var reds = Math.round(255-totalNumber);
       var greens = Math.round(totalNumber);
-      //console.log(reds);
       document.getElementById("f1").style.backgroundColor = "rgb("+reds+","+greens+",0)";
 
 
   }
 
   function color(number) {
-
-        var actual = 150-number;
-        var totaled = 0;
-
-        if (actual> 134){
-        document.getElementById("myBar").style.backgroundColor ="blue";
+        if (number<=15){
+          document.getElementById("myBar").style.backgroundColor ="blue";
+          document.getElementById("anotherHeader").innerText = Math.round(15-number);
         }
-
         else{
 
-          totaled=actual*2;
-        };
-        if (totaled>255){
-          totaled=255;
+          var actual = (150-number)*2;
+
+          if(actual>255){
+            actual=255;
+          }
+          var green = Math.round(actual);
+          var red = Math.round(255-actual);
+          document.getElementById("myBar").style.backgroundColor ="rgb("+red+","+green+",0)";
+          document.getElementById("anotherHeader").innerHTML = Math.round(150-number);
         };
 
-        var green = totaled;
-        var red = 255-totaled;
-        //console.log(green);
-        document.getElementById("myBar").style.backgroundColor ="rgb("+red+","+green+",0)";
 
     };
-
 
     </script>
 
